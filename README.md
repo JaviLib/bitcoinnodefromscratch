@@ -10,3 +10,4 @@ You may be asking why not install Umbrel directly? Umbrel is great, but still th
 - You want to learn how a Bitcoin node works from the inside out, understand the magic happening in the background.
 - You want to be able to choose versions of everything.
 - You want to have custom network requirements, including having both an static IP or Tor, or advanced inverse socks proxy from an VPN.
+- Satck sats

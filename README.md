@@ -22,5 +22,30 @@ Copy the iso image from hdd/ssd to flash/usb drive.The command sudo dd if=~/Down
 The usb has to be mounted and use fdisk -l or lsblk to identify the usb device.
 
 #Docker Installation 
- Install docker & docker compose
-https://docs.docker.com/engine/install/debian/
+ Install docker & docker compose https://docs.docker.com/engine/install/debian/
+Install using the repository
+Before you install Docker Engine for the first time on a new host machine, you need to set up the Docker repository. Afterward, you can install and update Docker from the repository.
+--Set up the repository
+
+    Update the apt package index and install packages to allow apt to use a repository over HTTPS:
+
+ sudo apt-get update
+
+ sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release
+--Add Docker’s official GPG key:
+ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+ 
+-- Use the following command to set up the stable repository. To add the nightly or test repository, add the word nightly or test (or both) after the word stable in the commands below. Learn about nightly and test channels.
+
+    Note: The lsb_release -cs sub-command below returns the name of your Debian distribution, such as helium. Sometimes, in a distribution like BunsenLabs Linux, you might need to change $(lsb_release -cs) to your parent Debian distribution. For example, if you are using BunsenLabs Linux Helium, you could use stretch. Docker does not offer any guarantees on untested and unsupported Debian distributions.
+  ---  echo \
+  "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  
+-- Install Docker Engine 
+   sudo apt-get update, sudo apt-get install docker-ce docker-ce-cli containerd.io

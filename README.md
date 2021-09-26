@@ -12,18 +12,15 @@ You may be asking why not install Umbrel directly? Umbrel is great, but still th
 - You want to have custom network requirements, including having both an static IP or Tor, or advanced inverse socks proxy from an VPN.
 - Stack sats
 
+##How 
+#Debian Linux Installation 
 The tutorial is to install the node on Linux(Debian) system and can be modified to be installed on other OS.
 
-Install the latest debian OS
-2. Copy the iso image from hdd/ssd to usb use the command
- sudo dd if=~/Downloads/*.iso of=/dev/sda bs=1M status=progress
- the usb has to be mounted and use fdisk -l or lsblk to identify the usb device.
+Install the latest debian OS from https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/11.0.0+nonfree/amd64/iso-cd/firmware-11.0.0-amd64-netinst.iso. The ISO image is a miminum install and need to be connected to the internet when installing the OS from a flash drive.
 
-3. Add user to sudoers
+Copy the iso image from hdd/ssd to flash/usb drive.The command sudo dd if=~/Downloads/*.iso(iso image location) of=/dev/sda bs=1M status=progress. DD is a dangerous command so be careful when using it . 
+The usb has to be mounted and use fdisk -l or lsblk to identify the usb device.
 
- add user to sudoers
-sudoers list is in etc/sudoers
-sudo adduser <<username>> sudo
-4.Docker
+#Docker Installation 
  Install docker & docker compose
 https://docs.docker.com/engine/install/debian/

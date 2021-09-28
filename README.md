@@ -25,24 +25,12 @@ The usb has to be mounted and use fdisk -l or lsblk to identify the usb device.
  Install docker & docker compose. Follow the link https://docs.docker.com/engine/install/debian/ for how to . 
  
  #Bitcoin node folder structure 
- btc(parent folder) and below are subfolders
+ btc(parent folder) and below are subfolders for each application .
 bitcoin  bos  docker-compose.yml lnd	rtl  th  tor
-./btc/tor:
+
+# Tor application  
+./btc/tor: tor has the below sub folders
 build  etc  lib
-./btc/tor/build:
-Dockerfile
 
-./btc/tor/etc:
-torrc
-
-./btc/tor/lib:
-cached-certs  cached-microdesc-consensus  cached-microdescs  cached-microdescs.new  control_auth_cookie  keys  lock  onionweb  state
-
-./btc/tor/lib/keys:
-
-./btc/tor/lib/onionweb:
-authorized_clients  hostname  hs_ed25519_public_key  hs_ed25519_secret_key
-
-./btc/tor/lib/onionweb/authorized_clients:
 
 

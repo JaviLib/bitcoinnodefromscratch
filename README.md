@@ -20,9 +20,9 @@ Install the latest debian OS from https://cdimage.debian.org/cdimage/unofficial/
 
 Copy the iso image from hdd/ssd to flash/usb drive.The command sudo dd if=~/Downloads/*.iso(iso image location) of=/dev/sda bs=1M status=progress. DD is a dangerous command so be careful when using it . 
 The usb has to be mounted and use fdisk -l or lsblk to identify the usb device.
-
-#Docker Installation 
- Install docker & docker compose. Follow the link https://docs.docker.com/engine/install/debian/ for how to . 
+**
+****#Docker Installation **
+ Install docker & docker compose. Follow the link https://docs.docker.com/engine/install/debian/ for how to .**
  
  #Bitcoin node folder structure 
  btc(parent folder) and below are subfolders for each application .
@@ -31,6 +31,8 @@ bitcoin  bos  docker-compose.yml lnd	rtl  th  tor
 # Tor application  
 ./btc/tor: tor has the below sub folders
 build  etc  lib
+build folder will hold the Dockerfile file. The Dockerfile is the basis for the build of the tor docker container.
+etc folder will hold the torrc file.
 
 
 

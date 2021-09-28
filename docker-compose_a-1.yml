@@ -1,0 +1,38 @@
+## Docker compose for the tor container
+version: '2.4'
+
+services:
+
+  tor:
+    build: ./tor/build
+    container_name: tor_build
+    restart: always
+    ports:
+      - 127.0.0.1:8050:9050
+      - 127.0.0.1:8051:9051
+      - 127.0.0.1:8118:8118
+    expose:
+      - 9050
+      - 9051
+      - 8118
+    volumes:
+      - ./tor/etc:/etc/tor
+    #   # chown -R root ./tor/lib
+      - ./tor/lib:/var/lib/tor
+    networks:
+      tor:
+        ipv4_address: 10.6.0.50
+      torext:
+      
+      
+networks:
+  tor:
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.6.0.0/16
+        
+  torext:
+    ipam:
+      config:
+        - subnet: 10.9.0.0/16

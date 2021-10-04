@@ -46,5 +46,9 @@ build  etc  lib
 build folder will hold the Dockerfile file. The Dockerfile is the basis for the build of the tor docker container.
 etc folder will hold the torrc file.
 
+# Bitcoin core 
+  folder structure bitcoin->bitcoin . This folder will hold the bitcoin blockchian data 
+  file bitcoin->Dockerfile . File is to build the bitcoin core container 
+  
 
 

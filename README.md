@@ -26,7 +26,16 @@ The usb has to be mounted and use `fdisk -l` or `lsblk` to identify the usb devi
 
 # Docker Installation
 Install docker & docker compose. Follow the link https://docs.docker.com/engine/install/debian/ for how to.
- 
+
+# Alias for docker commands 
+Create alias for docker in root's ./bash.rc file . Alias is like a shortcut to the actual command
+
+alias dcub='dc build --pull && docker-compose pull --include-deps
+            && docker-compose up --build  --detach'
+alias dcu='docker-compose up --build --detach'
+alias dc='docker-compose'
+alias dc1='docker-compose logs --tail=2000'
+
 # Bitcoin node folder structure 
 btc (parent folder) and below are subfolders for each application.
 `bitcoin  bos  docker-compose.yml lnd	rtl  th  tor`

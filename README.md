@@ -48,7 +48,8 @@ etc folder will hold the torrc file.
 
 # Bitcoin core 
   folder structure bitcoin->bitcoin . This folder will hold the bitcoin blockchian data 
-  file bitcoin->Dockerfile . File is to build the bitcoin core container 
+  bitcoin.conf file is laso in the bitcoin->bitcoin folder.The .conf file contains the parameters to control the bitcon core
+  file bitcoin->Dockerfile is to build the bitcoin core container 
   
 
 

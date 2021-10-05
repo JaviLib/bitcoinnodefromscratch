@@ -55,7 +55,9 @@ etc folder will hold the torrc file.
   Also you can create an alias for the command in root's ./bash.rc . alias bitcoin-cli = 'dc exec bitcoind bitcon-cli -rpcconnect=10.19.0.10' .
   If you already have a running node and to want improve the blockchain sync the below command can be executed 
   bitcoin-cli addnode "running node ipaddress:8333" "onetry"
-  
+  Docker network : where docker containers can communicate with each other  
+  docker network create -d bridge --subnet 10.10.0.0/16 --gateway 10.10.0.1 bitcoin
+  this creates an external virtual interface so everybody in your machine can connect to it. It is very useful to do NAT and forwarding from an external server
  
   
 

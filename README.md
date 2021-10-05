@@ -47,9 +47,14 @@ build folder will hold the Dockerfile file. The Dockerfile is the basis for the 
 etc folder will hold the torrc file.
 
 # Bitcoin core 
-  folder structure bitcoin->bitcoin . This folder will hold the bitcoin blockchian data 
-  bitcoin.conf file is laso in the bitcoin->bitcoin folder.The .conf file contains the parameters to control the bitcon core
-  file bitcoin->Dockerfile is to build the bitcoin core container 
+  Folder structure bitcoin->bitcoin . This folder will hold the bitcoin blockchian data 
+  Bitcoin.conf file is laso in the bitcoin->bitcoin folder.The .conf file contains the parameters to control the bitcon core
+  File bitcoin->Dockerfile is to build the bitcoin core container .
+  bitcoin-cli commands will not work directly as we have specified a specific ip address range to the rpcallowip parameter.
+  To execture bitcoin core command we have to use "dc exec bitcoind bitcoin-cli -rpcconnect=10.19.0.10 (or any ip in the range) -getinfo
+  Also you can create an alias for the command in root's ./bash.rc . alias bitcoin-cli = dc exec bitcoind bitcon-cli -rpcconnect=10.19.0.10 .
+  
+ 
   
 
 

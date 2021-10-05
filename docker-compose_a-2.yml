@@ -1,0 +1,38 @@
+version: '2.4'
+
+services:
+    
+  bitcoind:
+    build: ./bitcoin
+    stop_grace_period: 5m
+     #command: echo "Bitcoin disabled"
+    restart: always
+     #stop_grace_period : 1m30s
+     #stop_signal : SIGINT
+    depends_on: 
+      - tor
+    container_name: bitcoin_build
+    expose: 
+      - 8332
+      - 8333
+      - 28332
+    ports:
+      - 8333:8333
+    volumes:
+      - ./bitcoin/bitcoin:/bitcoin
+      - ./tor/lib:/var/lib/tor
+    networks:
+      bitcoinint:
+        ipv4_address: 10.19.0.10
+      tor:
+        ipv4_address: 10.6.0.51
+      bitcoin:
+      
+networks:
+   bitcoinint:
+    ipam: 
+      config:
+         - subnet: 10.19.0.0/16
+    internal: true 
+  bitcoin:
+    external: true

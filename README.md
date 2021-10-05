@@ -52,7 +52,7 @@ etc folder will hold the torrc file.
   File bitcoin->Dockerfile is to build the bitcoin core container .
   bitcoin-cli commands will not work directly as we have specified a specific ip address range to the rpcallowip parameter.
   To execture bitcoin core command we have to use "dc exec bitcoind bitcoin-cli -rpcconnect=10.19.0.10 (or any ip in the range) -getinfo
-  Also you can create an alias for the command in root's ./bash.rc . alias bitcoin-cli = dc exec bitcoind bitcon-cli -rpcconnect=10.19.0.10 .
+  Also you can create an alias for the command in root's ./bash.rc . alias bitcoin-cli = 'dc exec bitcoind bitcon-cli -rpcconnect=10.19.0.10' .
   If you already have a running node and to want improve the blockchain sync the below command can be executed 
   bitcoin-cli addnode "running node ipaddress:8333" "onetry"
   

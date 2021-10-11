@@ -70,3 +70,15 @@ If you already have a running node and to want improve the blockchain sync the b
 Docker network : where docker containers can communicate with each other  
 docker network create -d bridge --subnet 10.10.0.0/16 --gateway 10.10.0.1 bitcoin
 this creates an external virtual interface so everybody in your machine can connect to it. It is very useful to do NAT and forwarding from an external server
+
+# LND
+The following steps will help us run lnd in a docker 
+lnd file structure -
+./btc/lnd : Dockerfile 
+./btc/lnd: start.sh
+./btc/lnd/lnd  : folder
+./btc/lnd/lnd/lnd.conf: lnd configuration file to set various parameters for our lnd instance
+./btc/lnd/lnd/pass.txt: password for your wallet 
+
+
+

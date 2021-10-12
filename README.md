@@ -76,7 +76,8 @@ this creates an external virtual interface so everybody in your machine can conn
 The following steps will help us run lnd in a docker 
 lnd file structure -
 ./btc/lnd : Dockerfile 
-./btc/lnd: start.sh
+./btc/lnd: start.shbecause the lnd/lnd directory may contain gb of data, we are preventing docker to look into it, so create a .dockerignore inside lnd/
+./btc/lnd/.dockerignore will have the value/text lnd . This is to inform the Dockerifle to ignore the folder lnd/lnd because lnd/lnd may contain gb of data .
 ./btc/lnd/lnd  : folder
 ./btc/lnd/lnd/lnd.conf: lnd configuration file to set various parameters for our lnd instance
 ./btc/lnd/lnd/pass.txt: password for your wallet 

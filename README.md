@@ -44,6 +44,7 @@ alias dcub='dc build --pull && docker-compose pull --include-deps
 alias dcu='docker-compose up --build --detach'
 alias dc='docker-compose'
 alias dc1='docker-compose logs --tail=2000'
+alias lncli='dc exec lnd lncli'
 
 # Bitcoin node folder structure 
 btc (parent folder) and below are subfolders for each application.
@@ -87,11 +88,18 @@ Once the image is built we will have below folder/files created.
  - tls.key
  - v3_onion_private_key : private key form which the node ,watchtower onion address is generated. This file is created when we first start the wallet . LND calls tor control and creates hidden service on the go .
 
-Run the alias dcl lnd to check the lnd logs  
-Run the command lncli create : to create your wallet  . 
-Once the wallet is created , keep note of the passphrase and 24 seed words .
+Run the alias dcl lnd to check the lnd logs, also htop to check if lnd is running and using cpu.   
+Run the command lncli create : to create your wallet  . * Please do not provide the cipher seed passphrase as you will not be able to unlock the wallet.
+Once the wallet is created keep note of the 24 seed words .
 In the start.sh file remove the comment # in the below command and run dcu again to unlock  the wallet. 
 lnd --lnddir=/lnd --backupfilepath=/backup/channel.backup  #--wallet-unlock-password-file=/lnd/pass.txt
+In any situation if LND docker is not working  then we do the below :
+- dcu down , this will stop the containers from running .
+- Take a backup or copy files lnd.conf, pass.txt to a different folder and delete the lnd/lnd folder.
+- make the dir lnd/lnd  and copy the files lnd.conf , pass.txt 
+- dcu to start the containers, dcl lnd to check the lnd logs ,  dcl -f lnd will give realtime information of the lnd logs .
+- lnc create:  to create the wallet . 
+
 
 
 

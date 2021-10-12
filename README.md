@@ -79,6 +79,22 @@ lnd file structure -
 ./btc/lnd/lnd  : folder
 ./btc/lnd/lnd/lnd.conf: lnd configuration file to set various parameters for our lnd instance
 ./btc/lnd/lnd/pass.txt: password for your wallet 
+Run docker command alias "dcu" in the folder where the docker-compose.yml file resides to build the image .
+Once the image is built we will have below folder/files created. 
+ -backup folder : This is the channel backup 
+ - data folder 
+ - tls.cert
+ - tls.key
+ - v3_onion_private_key : private key form which the node ,watchtower onion address is generated. This file is created when we first start the wallet . LND calls tor control and creates hidden service on the go .
+
+Run the alias dcl lnd to check the lnd logs  
+Run the command lncli create : to create your wallet  . 
+Once the wallet is created , keep note of the passphrase and 24 seed words .
+In the start.sh file remove the comment # in the below command and run dcu again to unlock  the wallet. 
+lnd --lnddir=/lnd --backupfilepath=/backup/channel.backup  #--wallet-unlock-password-file=/lnd/pass.txt
+
+
+
 
 
 

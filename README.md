@@ -102,7 +102,13 @@ In any situation if LND docker is not working  then we do the below :
 - dcu to start the containers,before you run this command #(comment out ) --wallet-unlock-password-file/lnd/pass.txt in start.sh,-, dcl lnd to check the lnd logs ,  dcl -f lnd will give realtime information of the lnd logs .
 - lnc create:  to create the wallet .  
 - again run dcu ,before you run it uncomment the code  --wallet-unlock-password-file/lnd/pass.txt in start.sh  to unlock the wallet.
-Once your LND is up and running 
+Once your LND is up and running .
+-Import the LND wallet seed to BW or any wallet that supports AZEED wallet .
+-Compare the ZPUB of wallet imported to BW and the zpub of the LND wallet to know you have imported the wallet successfully . 
+-lncli wallet account list to get the wallet YPUB/ZPUB information
+-lncli newaddress p2wkh to get the wallet address in lncli.
+
+
  
 
 

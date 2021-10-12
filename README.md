@@ -112,6 +112,8 @@ Once your LND is up and running .
    . first generate the wallet address
    . qrencode -t UTF8 <<btc address >>
 
+-run htop to see if lnd is consuming CPU. sudo apt install htop.
+-run iftop to see if it is syncing the gossip.(https://www.binarytides.com/linux-commands-monitor-network/)
 
  
 

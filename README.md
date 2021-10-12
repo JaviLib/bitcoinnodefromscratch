@@ -107,6 +107,9 @@ Once your LND is up and running .
 -Compare the ZPUB of wallet imported to BW and the zpub of the LND wallet to know you have imported the wallet successfully . 
 -lncli wallet account list to get the wallet YPUB/ZPUB information
 -lncli newaddress p2wkh to get the wallet address in lncli.
+-In order to use or scan the LND wallet QR codes we can do the follwoing
+   . first generate the wallet address
+   . qrencode -t UTF8 <<btc address >>
 
 
  

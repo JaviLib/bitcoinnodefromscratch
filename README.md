@@ -31,7 +31,7 @@ The ISO image is a miminum install and need to be connected to the internet when
 Copy the iso image from hdd/ssd to flash/usb drive. The command
 `sudo dd if=~/Downloads/*.iso(iso image location) of=/dev/sda bs=1M status=progress`
 DD is a dangerous command so be careful when using it . 
-The usb has to be mounted and use `fdisk -l` or `lsblk` to identify the usb device.
+The usb has to be mounted and use sudo`fdisk -l` or `lsblk` to identify the usb device.
 
 # Docker Installation
 Install docker & docker compose. Follow the link https://docs.docker.com/engine/install/debian/ for how to.

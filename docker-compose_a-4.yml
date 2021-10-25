@@ -1,0 +1,149 @@
+version: '2.4'
+
+services:
+
+  # wordpress service
+  onionweb: # address.onion
+    image: wordpress
+    restart: always
+    depends_on:
+      - oniondb
+      - tor
+    expose:
+      - 80
+    environment:
+      admin: admin:xxxxxx
+      WORDPRESS_DB_NAME: onionweb
+      WORDPRESS_DB_HOST: oniondb:3306
+      WORDPRESS_DB_USER: onionweb
+      WORDPRESS_DB_PASSWORD: xxxxxx
+      # set HTTP_PROXY to tor to ensure you do not leak your ip address
+      http_proxy: http://tor:8118
+      https_proxy: http://tor:8118
+      HTTP_PROXY: http://tor:8118
+      HTTPS_PROXY: http://tor:8118
+    volumes:
+      - ./wordpress/onionweb:/var/www/html
+    networks:
+      tor: # set ip here that you will pass to your torrc
+        ipv4_address: 10.6.0.105 
+      db:
+
+  # wordpress database service
+  oniondb:
+    image: mariadb
+    container_name: oniondb_build
+    networks:
+      - db
+    volumes:
+      - ./wordpress/oniondb:/var/lib/mysql
+    restart: always
+    expose:
+      - "3306"
+    environment:
+      MYSQL_DATABASE: onionweb
+      MYSQL_USER: onionweb
+      MYSQL_PASSWORD: xxxxxx
+      MYSQL_ROOT_PASSWORD: xxxxxx
+
+  # tor service
+  tor:
+    build: ./tor/build
+    container_name: tor_build
+    restart: always
+    ports:
+      # binds to localhost, setting 9050:9050 will interfere with local tor service
+      - 127.0.0.1:8050:9050
+      - 127.0.0.1:8051:9051
+      - 127.0.0.1:8118:8118
+    expose:
+      - 9050
+      - 9051
+      - 8118
+    volumes:
+      - ./tor/etc:/etc/tor
+    #   # chown -R root ./tor/lib
+      - ./tor/lib:/var/lib/tor
+    networks:
+      tor:
+        ipv4_address: 10.6.0.50
+      torext:
+      
+  # bitcoin service
+  bitcoind:
+    build: ./bitcoin
+    stop_grace_period: 5m
+     #command: echo "Bitcoin disabled"
+    restart: always
+     #stop_grace_period : 1m30s
+     #stop_signal : SIGINT
+    depends_on: 
+      - tor
+    container_name: bitcoin_build
+    expose: 
+      - 8332
+      - 8333
+      - 28332
+    ports:
+      - 8333:8333
+    volumes:
+      - ./bitcoin/bitcoin:/bitcoin
+      - ./tor/lib:/var/lib/tor
+    networks:
+      bitcoinint:
+        ipv4_address: 10.19.0.10
+      tor:
+        ipv4_address: 10.6.0.51
+      bitcoin:
+
+  # lightning service
+  lnd:    
+    build: ./lnd
+    container_name: lnd_build
+    stop_grace_period: 5m
+    depends_on:
+      - bitcoind
+      - tor 
+    restart: always 
+    volumes:
+      - ./lnd/lnd:/lnd
+      - ./lnd/backup:/backup
+      - ./tor/lib:/var/lib/tor
+    networks:
+      - bitcoinint
+      - bitcoin
+      - tor
+    ports:
+      - 9911:9911
+      - 9735:9735
+      - 10009:10009
+      - 8080:8080
+    expose:
+      - 8080
+      
+networks:
+
+  tor:
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.6.0.0/16
+      
+  torext:
+    ipam:
+      config:
+        - subnet: 10.9.0.0/16
+
+  bitcoinint:
+    ipam: 
+      config:
+         - subnet: 10.19.0.0/16
+    internal: true 
+  bitcoin:
+    external: true
+
+  db:
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.11.0.0/16

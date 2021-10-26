@@ -85,6 +85,8 @@ services:
     networks: 
       bitcoinint:
       bitcoin:
+    tor: 
+      ipv4_address: 10.6.0.11
     volumes:
       - ./electrs:/root
       - ./bitcoin/bitcoin:/root/.bitcoin

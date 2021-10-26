@@ -44,6 +44,7 @@ alias dcub='dc build --pull && docker-compose pull --include-deps
 alias dcu='docker-compose up --build --detach'
 alias dc='docker-compose'
 alias dc1='docker-compose logs --tail=2000'
+alias bitcoin-cli = 'dc exec bitcoind bitcoin-cli -rpcconnect=10.19.0.10'  
 alias lncli='dc exec lnd lncli'
 
 # Bitcoin node folder structure 

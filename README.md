@@ -116,8 +116,10 @@ Once your LND is up and running .
 -run htop to see if lnd is consuming CPU. sudo apt install htop.
 -run iftop to see if it is syncing the gossip.(https://www.binarytides.com/linux-commands-monitor-network/)
 
-# Electrs
-            
+# Electrs (Selfhost electrum server on our own node )
+ - Folder structure ~/btc/electrs.
+ - config file to determine how the electrs should run . electrs.toml
+ - Update the docker-compose.yml to incldue the electrs image to run the container.
 
  
 

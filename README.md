@@ -97,7 +97,7 @@ lnd --lnddir=/lnd --backupfilepath=/backup/channel.backup  #--wallet-unlock-pass
 * Please take periodic backup of lnd/lnd directory (all the files) in a separate SSD or other location . This folder along with the wallet seed will help to restore funds if the node is down for some reason.
 * If we backup only the lnd/lnd/backup folder then we can only recover the funds in the channel(force close of channels) but not really restore the channels.
 In any situation if LND docker is not working  then we do the below :
-- dcu down , this will stop the containers from running .
+- dc down , this will stop the containers from running .
 - Take a backup or copy files lnd.conf, pass.txt to a different folder and delete the lnd/lnd folder.
 - make the dir lnd/lnd  and copy the files lnd.conf , pass.txt 
 - dcu to start the containers,before you run this command #(comment out ) --wallet-unlock-password-file/lnd/pass.txt in start.sh,-, dcl lnd to check the lnd logs ,  dcl -f lnd will give realtime information of the lnd logs .

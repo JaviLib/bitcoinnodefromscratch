@@ -72,6 +72,23 @@ services:
       - 8080:8080
     expose:
       - 8080
+  electrs:
+    image: iangregsondev/electrs
+    container_name: electrs_build
+    restart: always
+    depends_on : 
+      - bitcoind
+    ports:
+      - 5001:50001
+    expose:
+      - 50001
+    networks: 
+      bitcoinint:
+      bitcoin:
+    volumes:
+      - ./electrs:/root
+      - ./bitcoin/bitcoin:/root/.bitcoin
+      - ./electrs/config.toml:/etc/electrs/config.toml
 networks:
   tor:
     internal: true

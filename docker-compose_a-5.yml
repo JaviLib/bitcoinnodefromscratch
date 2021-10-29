@@ -79,7 +79,7 @@ services:
     depends_on : 
       - bitcoind
     ports:
-      - 5001:50001
+      - 50001:50001
     expose:
       - 50001
     networks: 

@@ -1,0 +1,207 @@
+version: '2.4'
+
+services:
+
+  tor:
+    build: ./tor/build
+    container_name: tor_build
+    restart: always
+    ports:
+      - 127.0.0.1:8050:9050
+      - 127.0.0.1:8051:9051
+      - 127.0.0.1:8118:8118
+    expose:
+      - 9050
+      - 9051
+      - 8118
+    volumes:
+      - ./tor/etc:/etc/tor
+    #   # chown -R root ./tor/lib
+      - ./tor/lib:/var/lib/tor
+    networks:
+      tor:
+        ipv4_address: 10.6.0.50
+      torext:
+      
+  bitcoind:
+    build: ./bitcoin
+    stop_grace_period: 5m
+     #command: echo "Bitcoin disabled"
+    restart: always
+     #stop_grace_period : 1m30s
+     #stop_signal : SIGINT
+    depends_on: 
+      - tor
+    container_name: bitcoin_build
+    expose: 
+      - 8332
+      - 8333
+      - 28332
+    ports:
+      - 8333:8333
+    volumes:
+      - ./bitcoin/bitcoin:/bitcoin
+      - ./tor/lib:/var/lib/tor
+    networks:
+      bitcoinint:
+        ipv4_address: 10.19.0.10
+      tor:
+        ipv4_address: 10.6.0.51
+      bitcoin:
+ 
+  lnd:    
+    build: ./lnd
+    container_name: lnd_build
+    stop_grace_period: 5m
+    depends_on:
+      - bitcoind
+      - tor 
+    restart: always 
+    volumes:
+      - ./lnd/lnd:/lnd
+      - ./lnd/backup:/backup
+      - ./tor/lib:/var/lib/tor
+    networks:
+      - bitcoinint
+      - bitcoin
+      - tor
+    ports:
+      - 9911:9911
+      - 9735:9735
+      - 10009:10009
+      - 8080:8080
+    expose:
+      - 8080
+
+  electrs:
+    image: iangregsondev/electrs
+    container_name: electrs_build
+    restart: always
+    depends_on : 
+      - bitcoind
+    ports:
+      - 50001:50001
+    expose:
+      - 50001
+    networks: 
+      bitcoinint:
+      bitcoin:
+    tor: 
+      ipv4_address: 10.6.0.11
+    volumes:
+      - ./electrs:/root
+      - ./bitcoin/bitcoin:/root/.bitcoin
+      - ./electrs/config.toml:/etc/electrs/config.toml
+
+  specter:
+    image: lncm/specter-desktop:v1.7.0
+    container_name: specter-desktop
+    depends_on:
+      - bitcoin
+    network_mode: host
+    ports:
+      - "25441:25441"
+    expose:
+      - 25441
+    restart: on-failure
+    stop_grace_period: 5m30s
+    volumes:
+      - ./bitcoin/bitcoin:/data/.bitcoin
+      - ./specter/data:/data/.specter"
+    networks:
+      bitcoin:
+      bitcoinint:
+      tor:
+        ipv4_address: 10.6.0.77
+
+  # MEMPOOL
+  mempool-web:
+    image: mempool/frontend:latest
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 1m
+    depends_on:
+      - mempool-api
+    command: "./wait-for mempool-db:3306 --timeout=720 -- nginx -g 'daemon off;'"
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    environment:
+      FRONTEND_HTTP_PORT: "8080"
+      BACKEND_MAINNET_HTTP_HOST: "mempool-api"
+    networks:
+      db:
+      bitcoin:
+      tor:
+        ipv4_address: 10.6.0.44
+  mempool-api:
+    image: mempool/backend:latest
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 1m
+    depends_on:
+      - mempool-db
+      - bitcoin
+      - electrs
+    command: "./wait-for-it.sh mempool-db:3306 --timeout=720 --strict -- ./start.sh"
+    volumes:
+      - ./mempool/data:/backend/cache
+    environment:
+      RPC_HOST: "10.19.0.10"
+      RPC_PORT: "8332"
+      RPC_USER: "testuser"
+      RPC_PASS: "testpass"
+      ELECTRUM_HOST: "electrs"
+      ELECTRUM_PORT: "50001"
+      ELECTRUM_TLS: "false"
+      MYSQL_HOST: "mempool-db"
+      MYSQL_PORT: "3306"
+      MYSQL_DATABASE: "mempool"
+      MYSQL_USER: "mempool"
+      MYSQL_PASS: "changethistosomethingsecure"
+      BACKEND_MAINNET_HTTP_PORT: "8999"
+      CACHE_DIR: "/backend/cache"
+      MEMPOOL_CLEAR_PROTECTION_MINUTES: "20"
+    networks:
+      db:
+      bitcoinint:
+  mempool-db:
+    image: mariadb:10.5.8
+    user: "1000:1000"
+    restart: on-failure
+    stop_grace_period: 1m
+    volumes:
+      - ./mempool/mysql/data:/var/lib/mysql
+      - ./mempool/mysql/db-scripts:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE: "mempool"
+      MYSQL_USER: "mempool"
+      MYSQL_PASSWORD: "changethistosomethingsecure"
+      MYSQL_ROOT_PASSWORD: "admin"
+    networks:
+      db:
+
+
+networks:
+  tor:
+    internal: true
+    ipam:
+      config:
+        - subnet: 10.6.0.0/16
+      
+  torext:
+    ipam:
+      config:
+        - subnet: 10.9.0.0/16
+
+  bitcoinint:
+    ipam: 
+      config:
+         - subnet: 10.19.0.0/16
+    internal: true 
+  bitcoin:
+    external: true
+ 
+  db:
+    internal: true

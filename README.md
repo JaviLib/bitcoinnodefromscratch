@@ -144,9 +144,12 @@ Once your LND is up and running .
       bitcoin:
       bitcoinint:
       tor:
-        ipv4_address: 10.6.0.77```
+        ipv4_address: 10.6.0.77
+            ```
 
 Update the torrc with corresponding ip address and port
-```HiddenServiceDir /var/lib/tor/specter/
+            
+```
+HiddenServiceDir /var/lib/tor/specter/
 HiddenServicePort 25441 10.6.0.77:25441
 ```

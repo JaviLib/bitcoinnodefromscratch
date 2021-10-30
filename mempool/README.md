@@ -37,7 +37,8 @@ mariadb-structure.sql
 now add the services to your docker-compose
 
 ## database
-```mempool-db:
+```
+mempool-db:
     image: mariadb:10.5.8
     user: "1000:1000"
     restart: on-failure
@@ -56,12 +57,14 @@ now add the services to your docker-compose
 mounting the volumes you created in the last step and adding a connection to the db network.
 You will need to add this network if you did not already for the wordpress step
 
-```db:
+```
+db:
     internal: true
 ```
 
 ## api
-```mempool-api:
+```
+mempool-api:
     image: mempool/backend:latest
     user: "1000:1000"
     restart: on-failure
@@ -102,7 +105,8 @@ the api container depends on bitcoin, electrs and our mempool-db,
 
 ## frontend
 
-```mempool-web:
+```
+mempool-web:
     image: mempool/frontend:latest
     user: "1000:1000"
     restart: on-failure
@@ -129,6 +133,7 @@ the frontend depends on the api and exposes the mempool service on port 8080 at 
 
 add the ip and port to your torrc file
 
-```HiddenServiceDir /var/lib/tor/mempool/
+```
+HiddenServiceDir /var/lib/tor/mempool/
 HiddenServicePort 80 10.6.0.44:8080
 ```

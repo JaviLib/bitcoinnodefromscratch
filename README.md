@@ -145,7 +145,7 @@ Once your LND is up and running .
       bitcoinint:
       tor:
         ipv4_address: 10.6.0.77
-            ```
+```
 
 Update the torrc with corresponding ip address and port
             

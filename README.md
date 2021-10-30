@@ -121,11 +121,32 @@ Once your LND is up and running .
  - config file to determine how the electrs should run . electrs.toml
  - Update the docker-compose.yml to incldue the electrs image to run the container.
 
- 
+ # Specter multisig wallet
+ using the latest image from docker lncm/specter-desktop:v1.7.0
 
+ update the docker-compose to include the specter service
+ ```specter:
+    image: lncm/specter-desktop:v1.7.0
+    container_name: specter-desktop
+    depends_on:
+      - bitcoin
+    network_mode: host
+    ports:
+      - "25441:25441"
+    expose:
+      - 25441
+    restart: on-failure
+    stop_grace_period: 5m30s
+    volumes:
+      - ./bitcoin/bitcoin:/data/.bitcoin
+      - ./specter/data:/data/.specter"
+    networks:
+      bitcoin:
+      bitcoinint:
+      tor:
+        ipv4_address: 10.6.0.77```
 
-
-
-
-
-
+Update the torrc with corresponding ip address and port
+```HiddenServiceDir /var/lib/tor/specter/
+HiddenServicePort 25441 10.6.0.77:25441
+```

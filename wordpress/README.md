@@ -7,11 +7,11 @@ Uses the mariadb image and will store the data
 
 - First you should add a section in your networks for an internal database network on an empty subnet.
 
-`db:
+```db:
     internal: true
     ipam:
       config:
-        - subnet: 10.11.0.0/16`
+        - subnet: 10.11.0.0/16```
 
 - Next you should create the database service with -
     - a connection to the db network
@@ -19,7 +19,7 @@ Uses the mariadb image and will store the data
     - port 3306 exposed
     - environment variables for the database name, user, password and root password
 
-`oniondb:
+```oniondb:
     image: mariadb
     container_name: oniondb_build
     networks:
@@ -34,7 +34,7 @@ Uses the mariadb image and will store the data
       MYSQL_USER: onionweb
       MYSQL_PASSWORD: xxxxxx
       MYSQL_ROOT_PASSWORD: xxxxxx
-`
+```
 
 ## onionweb
 
@@ -50,7 +50,7 @@ Uses the wordpress image and will host the webserver.
         - the db network
         - the tor network with a static ip that you can pass into your torrc file
 
-`onionweb:
+```onionweb:
     image: wordpress
     restart: always
     depends_on:
@@ -73,7 +73,7 @@ Uses the wordpress image and will host the webserver.
     networks:
       tor:
         ipv4_address: 10.6.0.105 
-      db:`
+      db:```
 
 - get your onion address -
     - run `dcu` to start your containers

@@ -247,6 +247,9 @@ CookieAuthentication 1
 HiddenServiceDir /var/lib/tor/onionweb/
 HiddenServicePort 80 10.6.0.105:80
 
+HiddenServiceDir /var/lib/tor/specter/
+HiddenServicePort 25441 10.6.0.77:25441
+
 #HiddenServiceDir /var/lib/tor/javi-drupal-service/
 #HiddenServicePort 80 javi-drupal:80
 

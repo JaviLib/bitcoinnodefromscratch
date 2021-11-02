@@ -130,6 +130,8 @@ Once your LND is up and running .
              HiddenServicePort 50001 10.6.0.11:50001  (the first port is the receiving and last port is outgoing)
       .To get the TOR/Onion address 
              cat /btc/tor/lib/electrs/hostname 
+       .the first is the port that the onion is listening on, the second is the destination container port
+       .if you don't specify a port at the end of a domain it will default to 80 for http and 443 for https
 
 # Specter multisig wallet
  using the latest image from docker lncm/specter-desktop:v1.7.0

@@ -118,9 +118,18 @@ Once your LND is up and running .
 
 # Electrs (Selfhost electrum server on our own node )**
  - Folder structure ~/btc/electrs.
- - config file to determine how the electrs should run . electrs.toml
+ - config file to determine how the electrs should run . electrs.toml. The electrs.toml file in folder /btc/electrs/electrs.toml
  - Update the docker-compose.yml to incldue the electrs image to run the container.
- -
+ - We can also run electrs externally as a hidden service(tor) . 
+      . Update the elects service in docker-compose to include .
+             . networks:
+                  tor :
+                        ipv4_address: 10.6.0.11 (tor internal ip address assigned)
+      . In file /btc/tor/etc/torrc  include the below :
+             HiddenServiceDir /var/lib/tor/electrs/     
+             HiddenServicePort 50001 10.6.0.11:50001  (the first port is the receiving and last port is outgoing)
+      .To get the TOR/Onion address 
+             cat /btc/tor/lib/electrs/hostname 
 
 # Specter multisig wallet
  using the latest image from docker lncm/specter-desktop:v1.7.0

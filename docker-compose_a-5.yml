@@ -90,7 +90,7 @@ services:
     volumes:
       - ./electrs:/root
       - ./bitcoin/bitcoin:/root/.bitcoin
-      - ./electrs/config.toml:/etc/electrs/config.toml
+      - ./electrs/electrs.toml:/etc/electrs/config.toml
 networks:
   tor:
     internal: true

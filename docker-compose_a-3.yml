@@ -90,4 +90,4 @@ networks:
          - subnet: 10.19.0.0/16
     internal: true 
   bitcoin:
-    external: true
+    external: true 

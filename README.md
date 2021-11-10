@@ -171,3 +171,6 @@ Check ports
   -- sudo apt install net-tools           
  -- netstat -tulpn  
  -- ufw allow 3002 ( if you have firewall installed )
+ --  dc logs lightningd | grep rest
+
+            

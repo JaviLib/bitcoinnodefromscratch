@@ -164,4 +164,10 @@ Update the torrc with corresponding ip address and port
 ```
 HiddenServiceDir /var/lib/tor/specter/
 HiddenServicePort 25441 10.6.0.77:25441
+                 
 ```
+# Will be modifed later : 
+Check ports 
+  -- sudo apt install net-tools           
+ -- netstat -tulpn  
+ -- ufw allow 3002 ( if you have firewall installed )

@@ -172,5 +172,7 @@ Check ports
  -- netstat -tulpn  
  -- ufw allow 3002 ( if you have firewall installed )
  --  dc logs lightningd | grep rest
+ --the bitcoin network is in bridge mode, remembe what we did in the begining when we created it, we asigned the range 10.10.0.0
+ --Now that I am thinking about this, the only real external interface is bitcoin, but this is bridged. Try to add torext to the networks of lightningd
 
             

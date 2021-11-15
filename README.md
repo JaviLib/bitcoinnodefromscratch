@@ -166,7 +166,7 @@ HiddenServiceDir /var/lib/tor/specter/
 HiddenServicePort 25441 10.6.0.77:25441
 
 ----------------------
-# Lightning (C Lightning)
+# **Lightning (C Lightning)**
 This is another flavor of lightning implementation  
 - create a directory lightning 
 - create a Dockerfile in lightning folder 

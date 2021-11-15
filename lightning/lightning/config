@@ -1,0 +1,67 @@
+alias=PratapBoss
+rgb=008000
+#bind-addr=10.19.0.78
+bind-addr=0.0.0.0:9732
+#announce-addr=94.177.171.73:9732
+#announce-addr=62.210.110.5
+#commit-fee default 500
+#commit-fee=499
+#fee-per-satoshi default 10
+#fee-per-satoshi=9
+#fee-base=1
+
+network=bitcoin
+bitcoin-rpcconnect=10.19.0.10
+bitcoin-rpcuser=pratap
+bitcoin-rpcpassword=  <<bitcoin core password>>
+bitcoin-datadir=/root/.bitcoin
+#alias="Cheese"
+#log-level=unusual
+log-level=info
+#bind-addr=62.210.110.5
+#commit-fee=479
+#fee-per-satoshi=9
+#announce-addr=62.210.110.5:9735
+#announce-addr=ydr57p3wrgixz4zjcv3wunnhr42p5xaepy3qifahnkc76awyx7tdflid.onion:9735
+
+addr=autotor:10.6.0.10:9051
+proxy=10.6.0.10:9050
+#always-use-proxy=false
+always-use-proxy=true
+#ignore-fee-limits=true
+
+#proxy=localhost:9999
+#always-use-proxy=true
+
+
+#autopilot-percent=95
+#autopilot-num-channels=25
+#autopilot-min-channel-size-msat=1000000000
+
+#--rescan=depth: A lightningd configuration flag. This flag is read at node startup and tells lightningd at what depth from current blockheight to rebuild its internal state. (You can specify an exact block to start scanning from, instead of depth from current height, by using a negative number.)
+#rescan=136945
+
+# # https://github.com/ZmnSCPxj/clboss
+# # Note, with this plugin on, you can't send or receive
+# plugin=/usr/local/bin/clboss
+# clboss-auto-close=true
+# clboss-min-onchain=1200000
+
+# # https://github.com/Ride-The-Lightning/c-lightning-REST
+# plugin=/usr/local/c-lightning-REST/plugin.js
+# rest-port=3002
+# rest-docport=4001
+# rest-protocol=https
+
+# https://github.com/ZmnSCPxj/clboss
+# Note , with this plugin on  you cant send receive 
+
+important-plugin=/usr/local/bin/clboss
+clboss-auto-close=true
+clboss-min-onchain=1200000
+
+#https://github.com/Ride-The-Lightning/c-lightning-REST
+important-plugin=/usr/local/c-lightning-REST/plugin.js
+rest-port=3002
+rest-docport=4001
+rest-protocol=https

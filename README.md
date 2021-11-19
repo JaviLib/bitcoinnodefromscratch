@@ -46,6 +46,8 @@ alias dc='docker-compose'
 alias dc1='docker-compose logs --tail=2000'
 alias bitcoin-cli = 'dc exec bitcoind bitcoin-cli -rpcconnect=10.19.0.10'  
 alias lncli='dc exec lnd lncli'
+alias cln='dc exec lightningd lightning-cli'
+
 
 # Bitcoin node folder structure 
 btc (parent folder) and below are subfolders for each application.
